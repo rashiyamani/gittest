@@ -1,0 +1,17 @@
+name: my first Work Flow
+
+on: push
+
+jobs:
+    first_jobs:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+
+        - name: List and Read file
+          run: |
+            echo "My first Github Actions job"
+            ls -ltra
+            cat README.md
+            
