@@ -16,6 +16,7 @@ jobs:
       with:
         node-version: '20'
         cache: 'npm'
+        cache-dependency-path: './server/package-lock.json' # Adjust path as needed
         
     - name: Install dependencies
       run: npm ci
