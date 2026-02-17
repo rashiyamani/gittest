@@ -1,0 +1,37 @@
+# .github/workflows/basic-ci.yml
+name: Basic CI V3 Pipeline
+ 
+on:
+  workflow_dispatch: 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+ 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Create package.json
+      run: npm init -y
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Create build files
+      run: |
+        mkdir -p dist
+        echo "console.log('Built application');" > dist/app.js
+        echo "Built on $(date)" > dist/build-info.txt
+        echo '{"version": "1.0.0", "built": "'$(date)'"}' > dist/manifest.json
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: dist/
