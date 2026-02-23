@@ -35,6 +35,14 @@ jobs:
         echo "=== Created package-lock.json ==="
         ls -la package-lock.json
 
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+      
     - name: Create build files
       run: |
         mkdir -p dist
