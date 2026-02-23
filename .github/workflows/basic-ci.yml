@@ -34,3 +34,16 @@ jobs:
         cat package.json
         echo "=== Created package-lock.json ==="
         ls -la package-lock.json
+
+    - name: Create build files
+      run: |
+        mkdir -p dist
+        echo "console.log('Built application');" > dist/app.js
+        echo "Built on $(date)" > dist/build-info.txt
+        echo '{"version": "1.0.0", "built": "'$(date)'"}' > dist/manifest.json
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: dist/
